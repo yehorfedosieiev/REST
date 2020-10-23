@@ -74,7 +74,7 @@ document.querySelector('#form-edit-student button[type="submit"]').addEventListe
 
     api.updateStudentById(id, data).then(response => {
         console.log('response от updateStudentById', response);
-        const element = document.querySelector(`#student-list [data-id="${id}"]`);
+        const element = document.querySelector(`#students-list [data-id="${id}"]`);
 
         console.log('element соответствующий редактируемому', element);// element соответствующий редактируемому
     }).catch(error => {
