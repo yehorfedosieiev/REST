@@ -103,6 +103,29 @@ document.querySelector('#form-add-student button[type="submit"]').addEventListen
         'info': elements.info.value
     };
 
+    //если нет класса has-error, поля не будут подсвечиваться красным
+    const elementsWithError = formAddStudent.querySelector('.has-error');
+    console.log('все элементы на странице, у которых есть класс has-error', elementsWithError);
+    if (elementsWithError.length) {
+        elementsWithError.forEach(element => {
+            element.classList.remove('has-error');
+        });
+    }
+    //----------
+
+    //проверка, что поля пустые
+    let hasError = false;
+    if (!data.firstname){
+        formAddStudent.querySelector('[name="firstname"]').parentNode.classList.add("has-error");
+        hasError = true;
+    };
+    if (!data.lastname){
+        formAddStudent.querySelector('[name="lastname"]').parentNode.classList.add("has-error");
+        hasError = true;
+    };
+    if(hasError) return;
+    //----------
+
     api.createStudent(data).then(response => {
         console.log(response);//при успешном респонсе 200, сервер вернет id
         
@@ -110,8 +133,23 @@ document.querySelector('#form-add-student button[type="submit"]').addEventListen
         data.id = id;
         
         addStudent(data);
+
+        formAddStudent.reset();// очищение формы
         
     }).catch(error => {
         console.error(error);
     });
+});
+
+document.querySelector('#form-edit-student button[type="button"]').addEventListener('click', () => {
+    const id = document.querySelector('#form-edit-student [name="id"]').value;
+    if(!id){
+        return;
+    }
+    console.log('id удаляемого студента', id);
+    api.deleteStudent(id).then(response => { // вместо response можно поставить ()
+        document.querySelector('#students-list [data-id="' + id + '"]').remove();
+    }).catch(error => {
+        console.error(error);
+    })
 });
