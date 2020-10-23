@@ -50,3 +50,34 @@ document.body.addEventListener('click', event => {
         formEditStudent.elements.id.value = studentId;
     });
 });
+
+// formEditStudent.addEventListener('submit', function(event){
+//     event.preventDefault(); // форма не отправляет запрос
+
+//     console.log(event);
+// })
+
+document.querySelector('#form-edit-student button[type="submit"]').addEventListener('click', ()=>{
+    console.log(formEditStudent.elements);
+
+    const data ={
+        'firstname': formEditStudent.elements.firstname.value,
+        'lastname': formEditStudent.elements.lastname.value,
+        'email': formEditStudent.elements.email.value,
+        'git': formEditStudent.elements.git.value,
+        'info': formEditStudent.elements.info.value
+    };
+
+    console.log(data);
+
+    const id = formEditStudent.elements.id.value; //скрытый input в index.html
+
+    api.updateStudentById(id, data).then(response => {
+        console.log('response от updateStudentById', response);
+        const element = document.querySelector('#student-list [data-id="' + id + '"]');
+
+        console.log('element соответствующий редактируемому', element);// element соответствующий редактируемому
+    }).catch(error => {
+        console.error(error);
+    });
+})
