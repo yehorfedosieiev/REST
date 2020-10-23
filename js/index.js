@@ -77,6 +77,7 @@ document.querySelector('#form-edit-student button[type="submit"]').addEventListe
         const element = document.querySelector(`#students-list [data-id="${id}"]`);
 
         console.log('element соответствующий редактируемому', element);// element соответствующий редактируемому
+        element.innerText = `${data.firstname} ${data.lastname}`;
     }).catch(error => {
         console.error(error);
     });
