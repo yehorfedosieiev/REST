@@ -34,9 +34,9 @@ export default class API{
     }
 
         //метод удаления студента
-        createStudent(id){
-            return fetch(`${this.server}/api/v${this.version}/students/${id}.json`, {
-                method: 'DELETE'
-            }).then(result => result.json());
-        }
+    deleteStudent(id){
+        return fetch(`${this.server}/api/v${this.version}/students/${id}.json`, {
+            method: 'DELETE'
+        }).then(result => result.json());
+    }
 }
