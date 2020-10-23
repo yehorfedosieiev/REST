@@ -81,4 +81,37 @@ document.querySelector('#form-edit-student button[type="submit"]').addEventListe
     }).catch(error => {
         console.error(error);
     });
-})
+});
+
+document.querySelector('#form-add-student button[type="submit"]').addEventListener('click', function(eevent){
+    console.log("кнопка удаления студента");
+    const formAddStudent = document.querySelector('#form-add-student');
+    // const data ={
+    //     'firstname': formAddStudent.elements.firstname.value,
+    //     'lastname': formAddStudent.elements.lastname.value,
+    //     'email': formAddStudent.elements.email.value,
+    //     'git': formAddStudent.elements.git.value,
+    //     'info': formAddStudent.elements.info.value
+    // };
+
+    const {elements} = formAddStudent;
+    const data ={
+        'firstname': elements.firstname.value,
+        'lastname': elements.lastname.value,
+        'email': elements.email.value,
+        'git': elements.git.value,
+        'info': elements.info.value
+    };
+
+    api.createStudent(data).then(response => {
+        console.log(response);//при успешном респонсе 200, сервер вернет id
+        
+        const {name:id} = response;
+        data.id = id;
+        
+        addStudent(data);
+        
+    }).catch(error => {
+        console.error(error);
+    });
+});

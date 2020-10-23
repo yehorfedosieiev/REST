@@ -54,7 +54,31 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4"></div>
+
+        <div class="col-md-4">
+            <div class="panel panel-success">Create student</div>
+            <div class="panel-body">
+                <form id="form-add-student">
+                    <div class="form-group">
+                        <input type="text" placeholder="Firstname" name="firstname" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Lastname" name="lastname" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Email" name="email" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Git" name="git" class="form-control">
+                    </div>
+                    <div class="form-group">
+                    <textarea name="info" placeholder="Info" class="form-control"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">Create</button>
+                    <button type="reset" class="btn btn-default"><i class="glyphicon glyphicon-refresh"></i>Reset</button>
+                </form>
+            </div>
+        </div>
     </div>
 
     <script src="./js/index.js" type="module"></script>

@@ -14,7 +14,7 @@ export default class API{
     //метод получения студента по id
     getStudentById(id){
         return fetch(`${this.server}/api/v${this.version}/students/${id}.json`).then(result => result.json());
-    }
+    };
 
     //метод обновления
     updateStudentById(id, data){
@@ -23,5 +23,20 @@ export default class API{
             method: 'PUT',
             body: JSON.stringify(data)
         }).then(result => result.json())
+    };
+
+    //метод добавления
+    createStudent(data){
+        return fetch(`${this.server}/api/v${this.version}/students.json`, {
+            method: 'POST',
+            body: JSON.stringify(data)
+        }).then(result => result.json());
     }
+
+        //метод удаления студента
+        createStudent(id){
+            return fetch(`${this.server}/api/v${this.version}/students/${id}.json`, {
+                method: 'DELETE'
+            }).then(result => result.json());
+        }
 }
