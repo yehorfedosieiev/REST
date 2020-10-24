@@ -83,8 +83,9 @@ document.querySelector('#form-edit-student button[type="submit"]').addEventListe
     });
 });
 
-document.querySelector('#form-add-student button[type="submit"]').addEventListener('click', function(eevent){
-    console.log("кнопка удаления студента");
+//кнопка Create - обработка нажатия
+document.querySelector('#form-add-student button[type="submit"]').addEventListener('click', function(event){
+    
     const formAddStudent = document.querySelector('#form-add-student');
     // const data ={
     //     'firstname': formAddStudent.elements.firstname.value,
@@ -104,12 +105,12 @@ document.querySelector('#form-add-student button[type="submit"]').addEventListen
     };
 
     //если нет класса has-error, поля не будут подсвечиваться красным
-    const elementsWithError = formAddStudent.querySelector('.has-error');
-    console.log('все элементы на странице, у которых есть класс has-error', elementsWithError);
-    if (elementsWithError.length) {
-        elementsWithError.forEach(element => {
-            element.classList.remove('has-error');
-        });
+    const elementsWithError = formAddStudent.querySelectorAll('.has-error');
+    if (elementsWithError !== null){ //if (elementsWithError.length) {
+        console.log('все элементы на странице, у которых есть класс has-error', elementsWithError);
+            elementsWithError.forEach(element => {
+                element.classList.remove('has-error');
+            });
     }
     //----------
 
@@ -127,13 +128,14 @@ document.querySelector('#form-add-student button[type="submit"]').addEventListen
     //----------
 
     api.createStudent(data).then(response => {
+
         console.log(response);//при успешном респонсе 200, сервер вернет id
         
         const {name:id} = response;
         data.id = id;
         
         addStudent(data);
-
+        
         formAddStudent.reset();// очищение формы
         
     }).catch(error => {
@@ -141,6 +143,7 @@ document.querySelector('#form-add-student button[type="submit"]').addEventListen
     });
 });
 
+//кнопка Delete - обработка нажатия
 document.querySelector('#form-edit-student button[type="button"]').addEventListener('click', () => {
     const id = document.querySelector('#form-edit-student [name="id"]').value;
     if(!id){
@@ -149,7 +152,16 @@ document.querySelector('#form-edit-student button[type="button"]').addEventListe
     console.log('id удаляемого студента', id);
     api.deleteStudent(id).then(response => { // вместо response можно поставить ()
         document.querySelector('#students-list [data-id="' + id + '"]').remove();
+        const formEditStudent = document.querySelector('#form-edit-student');
+        formEditStudent.reset();
     }).catch(error => {
         console.error(error);
     })
+});
+
+//кнопка Reset - обработка нажатия
+document.querySelector('#form-add-student button[type="reset"]').addEventListener('click', () => {
+    const formAddStudent = document.querySelector('#form-add-student');
+    console.log('yes');
+    formAddStudent.reset();
 });
